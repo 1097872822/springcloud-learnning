@@ -17,7 +17,7 @@
 + #### 负载均衡：
 
   + <img src="https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210714203614.png" alt="image-20210711183034849" style="zoom:50%;" />
-  +  **常见的负载均衡算法**：简单轮询、加权轮询、简单随机、加权随机、一致性哈希、最小活跃数。
+  + **常见的负载均衡算法**：简单轮询、加权轮询、简单随机、加权随机、一致性哈希、最小活跃数。
     + 一致性哈希：根据请求的客户端ip或请求参数通过哈希得到一个数值，利用取模映射出对应的服务器，这样保证同一个请求每次能使用同一台服务器。
     + 最小活跃数：统计每台服务器上当前正在处理的请求，将请求分发给活跃数最少的服务器。
     + 常见的负载均衡组件：**nginx**、lvs、**ribbon**；
@@ -82,7 +82,7 @@
 + #### 分布式事务：
 
   + <img src="https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210714203624.png" alt="image-20210711191010549" style="zoom:50%;" />
-  +  实现分布式事务的方式：直接通过数据库、通过消息队列、两阶段提交、三阶段提交；
+  + 实现分布式事务的方式：直接通过数据库、通过消息队列、两阶段提交、三阶段提交；
   + 分布式事务的三个角色：事务协调器、事务管理者、资源管理器；
   + 常用的分布式事务框架：seata、icn、bytetcc；
 
@@ -297,7 +297,9 @@
 [几种负载均衡器的简单分析](https://blog.csdn.net/lij231/article/details/82925245)
 
 + 负载均衡分服务端和客户端，常见的nginx就是服务端的负载均衡，即nginx将客户请求发送给上游不同的服务器去处理；
+
 + 负载均衡都会维护一个可用的服务端清单，然后通过心跳机制来删除故障的服务端节点以保证清单中都是可以正常访问的服务端节点；
+
 + 负载均衡服务器按照某种配置好的规则从可用服务端清单中选出一台服务器去处理客户端的请求。这就是服务端负载均衡。
 
 + “Ribbo是一个基于HTTP和TCP的客户端负载均衡器，当我们将Ribbon和Eureka一起使用时，Ribbon会从Eureka注册中心去获取服务端列表，然后进行轮询访问以到达负载均衡的作用，客户端负载均衡中也需要心跳机制去维护服务端清单的有效性，当然这个过程需要配合服务注册中心一起完成。”
@@ -583,11 +585,33 @@ public interface IRule{
 + 这个具体的地址是通过ServiceRequestWrapper继承HttpRequestWrapper 类，并且重写了getURI()方法，同时在 getURI() 方法中，具体采纳了RibbonLoadBalancerClient.reconstructURI方法来组织具体请求的URL实例地址。
 
 + 大致过程是：通过LoadBalancerInterceptor对RestTemplate的请求进行拦截，并利用Spring cloud的LoadBalancerClient将逻辑服务名转换为具体实例地址的过程。同时通过LoadBalancerClient的实现RibbonLoadBalancerClient，就可以知道再使用Ribbon实现的负载均衡时，实际使用的还是Ribbon中定义的ILoadBalancer接口的实现，且自动化配置类会使用ZoneAwareLoadBalancer作为客户端负载均衡的实现。
-  
+
 + ###### 要想通过spring cloud ribbon实现负载均衡，非常简单，只需要两步：
 
   1. 服务提供者启动多个实例注册到注册中心
   2. 服务消费者直接调用被@LoadBalanced注解修饰过的RestTemplate来实现服务的调用。
+
+
+
+
+
+#### SpringCloud Config配置中心
+
+![image-20210715223452112](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232646.png)
+
+![image-20210715223517694](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232644.png)
+
+![image-20210715223552278](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232643.png)
+
+![image-20210715223612230](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232640.png)
+
+![image-20210715230133145](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232637.png)
+
+![image-20210715232538761](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232638.png)
+
+
+
+
 
 
 
@@ -616,8 +640,11 @@ public interface IRule{
 + 传统的 Web 开发登录认证一般都是基于 session 的，但是在前后端分离的架构中继续使用 session 就会有许多不便，因为移动端（Android、iOS、微信小程序等）要么不支持 cookie（微信小程序），要么使用非常不便，对于这些问题，使用 OAuth2 认证都能解决。在互联网应用中最常见的 OAuth2 应该就是各种第三方登录了，例如 QQ 授权登录、微信授权登录、微博授权登录、GitHub 授权登录等等。
 
 + “在不知道密码的情况下也能在户主的授权下进出小区”————快递员问题-授权机制
+
 + **简单说，OAuth 就是一种授权机制。数据的所有者告诉系统，同意授权第三方应用进入系统，获取这些数据。系统从而产生一个短期的进入令牌（token），用来代替密码，供第三方应用使用。**
+
 + 令牌（token）与密码（password）的作用是一样的，都可以进入系统，但是有三点差异。
+
   + （1）令牌是短期的，到期会自动失效，用户自己无法修改。密码一般长期有效，用户不修改，就不会发生变化。
   + （2）令牌可以被数据所有者撤销，会立即失效。以上例而言，屋主可以随时取消快递员的令牌。密码一般不允许被他人撤销。
   + （3）令牌有权限范围（scope），比如只能进小区的二号门。对于网络服务来说，只读令牌就比读写令牌更安全。密码一般是完整权限。
@@ -842,8 +869,8 @@ public interface IRule{
 [SpringMVC 包教包会](https://www.cnblogs.com/lenve/p/12100698.html)
 
 +  Web MVC 设计模式的请求驱动类型的轻量级 Web 框架
-+ 基于请求驱动指的就是使用请求-响应模型，框架的目的就是帮助我们简化开发
-+ 提供了非常灵活的数据验证、格式化和数据绑定机制；提供了强大的约定大于配置（惯例优先原则）的契约式编程支持。
++  基于请求驱动指的就是使用请求-响应模型，框架的目的就是帮助我们简化开发
++  提供了非常灵活的数据验证、格式化和数据绑定机制；提供了强大的约定大于配置（惯例优先原则）的契约式编程支持。
 
 #### Java回调机制
 
@@ -929,6 +956,24 @@ public interface IRule{
       + logging.logback.rollingpolicy.max-history：日志文件保存的天数。
 
       [springboot日志的各种使用](https://www.cnblogs.com/lenve/p/14142244.html)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
