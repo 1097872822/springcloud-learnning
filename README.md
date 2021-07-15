@@ -1,6 +1,3 @@
-# springcloud-learnning
-personal's learnning for springcloud~
-
 ## springcloud：
 
 + **主要由配置中心、注册中心、服务网关、负载均衡、RPC调用、服务熔断、服务降级、服务限流、全局锁、控制总线、分布式事务、服务安全、链路追踪、集群管理、事件驱动、任务调度、云连接器、函数计算 组成；**
@@ -598,6 +595,28 @@ public interface IRule{
 
 
 
+#### SpringCloud Config配置中心
+
+![image-20210715223452112](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232646.png)
+
+![image-20210715223517694](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232644.png)
+
+![image-20210715223552278](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232643.png)
+
+![image-20210715223612230](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232640.png)
+
+![image-20210715230133145](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232637.png)
+
+![image-20210715232538761](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232638.png)
+
+
+
+
+
+
+
+
+
 
 
 #### Eureka 自我保护 安全认证
@@ -937,10 +956,6 @@ public interface IRule{
       + logging.logback.rollingpolicy.max-history：日志文件保存的天数。
 
       [springboot日志的各种使用](https://www.cnblogs.com/lenve/p/14142244.html)
-
-
-
-
 
 
 
