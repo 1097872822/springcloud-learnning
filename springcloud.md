@@ -1,4 +1,4 @@
-## springcloud：
+## springcloud组件
 
 + **主要由配置中心、注册中心、服务网关、负载均衡、RPC调用、服务熔断、服务降级、服务限流、全局锁、控制总线、分布式事务、服务安全、链路追踪、集群管理、事件驱动、任务调度、云连接器、函数计算 组成；**
 
@@ -26,7 +26,7 @@
 
   + <img src="https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210714203615.png" alt="image-20210711183756481" style="zoom:50%;" />
 
-  + ###### 与HTTP调用的区别：
+  + ##### 与HTTP调用的区别：
 
     <img src="https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210714203616.png" alt="image-20210711183847726" style="zoom:50%;" />
 
@@ -52,11 +52,11 @@
     + 都让用户体验到某些功能暂时不可用；
     + **熔断是下游服务故障触发的，降级是为了降级系统负载；**
 
-  + ##### 服务雪崩：
+  + #### 服务雪崩：
 
     + <img src="https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210714203620.png" alt="image-20210711185257441" style="zoom:50%;" />
 
-  + ##### 服务限流：
+  + #### 服务限流：
 
     + <img src="https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210714203621.png" alt="image-20210711185408226" style="zoom:50%;" />
     + 常用的限流算法：固定窗口计数器、滑动窗口计数器、令牌捅、漏铜。
@@ -139,7 +139,9 @@
 + #### 函数计算：
 
   + <img src="https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210714203630.png" alt="image-20210711192720047" style="zoom:50%;" />
-  + 函数计算的特点：
+
+  + ##### 函数计算的特点：
+
     + 支持响应式等编程风格；
     + 输入输出类型透明转化；
     + 流数据处理；
@@ -150,7 +152,7 @@
 
 
 
-+ ### *Spring Cloud Config*：
++ ### Spring Cloud Config
 
   + 配置中心，将系统中用到的一些配置信息存储到配置中心，方便维护，不用每次修改配置都重启服务。用的比较多的配置中心还有etcd、携程的 Apollo、Disconf 。
 
@@ -189,6 +191,10 @@
 
   + 可用做**授权服务、单点登录**等。如果服务需要做权限控制，那除非你自己实现。不然用到最多的就是 shiro 和 Spring Security 。Spring Boot 中用的比较多的就是 Security，众多授权机制中属于 **OAuth2** 最为流行。**Spring Cloud Security 就是将 Security、OAuth2 做了集成**，方便使用。	
 
+
+
+
+
 ---
 
 ## 注册中心Eureka：
@@ -201,6 +207,17 @@
     - bootstrap.yml 在 application.yml 之前启动；
     - bootstrap.yml 配置 application 的 name、spring.cloud.config.server.git.uri、一些encryption/decryption（加密/解密）信息；
     - application.yml 的信息会覆盖 bootstrap.yml 中的内容，当遇到相同的配置的时候；
+
++ ##### 依赖
+
+  ```java
+  <dependency>
+   <groupId>org.springframework.cloud</groupId>  
+   <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+  </dependency>  //如果是服务提供者，则为client
+  ```
+
+  
 
 + ##### 简单流程：
 
@@ -280,17 +297,7 @@
 
 
 
-+ ## 熔断监测之monitor:
-
-  + https://blog.csdn.net/feinifi/article/details/96035614
-
-
-
 ---
-
-
-
-
 
 ## 负载均衡器：Ribbon-LoadBalancer
 
@@ -378,25 +385,25 @@
 
 ## 负载均衡策略
 
-###### Ribbon具体提供了哪些规则供我们使用呢？通过查看Ribbon的IRule接口的实现集成关系图，我们最终可以发现，Ribbon主要提供了以下几个规则实现的。
++ #### Ribbon具体提供了哪些规则供我们使用呢？通过查看Ribbon的IRule接口的实现集成关系图，我们最终可以发现，Ribbon主要提供了以下几个规则实现的。
 
-- RandomRule 类：该策略实现了从服务实例清单中随机选择一个服务实例的功能
++ RandomRule 类：该策略实现了从服务实例清单中随机选择一个服务实例的功能
 
-- RoundRobinRule类：该策略实现了轮询的方式从服务实例清单中依次选择服务实例的功能RetryRule
++ RoundRobinRule类：该策略实现了轮询的方式从服务实例清单中依次选择服务实例的功能RetryRule
 
-- RetryRule类：该策略实现了具备重试机制的实例选择功能
++ RetryRule类：该策略实现了具备重试机制的实例选择功能
 
-- WeightedResponseTimeRule类：根据权重来选择实例
++ WeightedResponseTimeRule类：根据权重来选择实例
 
-- BestAvailableRule类：选择一个最空闲的实例
++ BestAvailableRule类：选择一个最空闲的实例
 
-- PredicateBasedRule 类：先过滤，然后再以轮询的方式选择实例
++ PredicateBasedRule 类：先过滤，然后再以轮询的方式选择实例
 
   。。。（共11个）
 
 ![image-20210714141510701](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210714203634.png)
 
-+ ###### IRule接口：
++ #### IRule接口：
 
 ```java
 public interface IRule{
@@ -411,17 +418,17 @@ public interface IRule{
 
 
 
+
+
 ---
 
-
-
-#### Springcloud eureka Resttemplate
+## Springcloud eureka Resttemplate
 
 + 当我们从服务消费端去调用服务提供者的服务的时候，使用了一个很好用的对象，叫做RestTemplate，当时我们只使用了RestTemplate中最简单的一个功能getForEntity发起了一个get请求去调用服务端的数据，同时，我们还通过配置@LoadBalanced注解开启客户端负载均衡；
 
-+ ###### RestTemplate的四个请求：
++ #### RestTemplate的四个请求：
 
-  + **GET请求**
+  + ##### **GET请求**
 
     + ###### restTemplate.getForEntity
 
@@ -433,7 +440,7 @@ public interface IRule{
 
       + getForObject函数实际上是对getForEntity函数的进一步封装，如果你只关注返回的消息体的内容，对其他信息都不关注，此时可以使用getForObject;
 
-  + **POST请求**
+  + ##### **POST请求**
 
     + ###### restTemplate.postForEntity
 
@@ -449,15 +456,15 @@ public interface IRule{
 
       + postForLocation也是提交新资源，提交成功之后，返回新资源的URI，postForLocation的参数和前面两种的参数基本一致，只不过该方法的返回值为Uri，这个只需要服务提供者返回一个Uri即可，该Uri表示新资源的位置。
 
-  + **PUT请求**
+  + ##### **PUT请求**
 
     + 在RestTemplate中，PUT请求可以通过put方法调用，put方法的参数和前面介绍的postForEntity方法的参数基本一致，只是put方法没有返回值而已。
 
-  + **DELETE请求**
+  + ##### **DELETE请求**
 
     + delete请求我们可以通过delete方法调用来实现；也是两个参数，一个是删除的地址，一个是删除值；
 
-+ ###### RestTemplate从发送请求到负载均衡
++ #### RestTemplate从发送请求到负载均衡
 
   + 当时我们说开启负载均衡很简单，只需要在RestTemplate的bean上再添加一个@LoadBalanced注解即可；这个注解使用来给RestTemplate做标记，使LoadBalancerClient来配置它.
 
@@ -493,7 +500,7 @@ public interface IRule{
     }
     ```
 
-    ###### LoadBalancerClient是一个接口，该接口中有3个方法:
+    ##### LoadBalancerClient是一个接口，该接口中有3个方法:
 
     + 1.ServiceInstance choose(String serviceId)根据传入的服务名serviceId从客户端负载均衡器中挑选一个对应服务的实例;
 
@@ -595,47 +602,45 @@ public interface IRule{
 
 
 
-#### SpringCloud Config配置中心
+---
 
-![image-20210715223452112](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232646.png)
+## Eureka 自我保护 安全认证
 
-![image-20210715223517694](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232644.png)
-
-![image-20210715223552278](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232643.png)
-
-![image-20210715223612230](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232640.png)
-
-![image-20210715230133145](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232637.png)
-
-![image-20210715232538761](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232638.png)
-
-
-
-
-
-
-
-
-
-
-
-#### Eureka 自我保护 安全认证
-
-#### actuator
+## actuator
 
 ​	![image-20210714104528593](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210714203638.png)
 
-#### okhttp URL
++ #### 监控管理：
 
-##### 代理式负载均衡
+  + ##### 依赖：
 
-#### 线程池-多线程
+    ```java
+    <!-- 监控管理 -->
+    <dependency>
+     <groupId>org.springframework.boot</groupId>  
+     <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    ```
 
-#### Feign【拦截器传递header 中的 oauth2 token】  openfeign
+    
 
-#### 信号量[模式]
+## okhttp URL
 
-####  Spring Cloud Security OAuth2
+## 代理式负载均衡
+
+## 线程池-多线程
+
+## Feign【拦截器传递header 中的 oauth2 token】  openfeign
+
+## 信号量[模式]
+
+
+
+## [session、token、jwt、oauth2](https://www.yuque.com/pig4cloud/pig/egcx5x)
+
+---
+
+##  Spring Cloud Security OAuth2
 
 + 传统的 Web 开发登录认证一般都是基于 session 的，但是在前后端分离的架构中继续使用 session 就会有许多不便，因为移动端（Android、iOS、微信小程序等）要么不支持 cookie（微信小程序），要么使用非常不便，对于这些问题，使用 OAuth2 认证都能解决。在互联网应用中最常见的 OAuth2 应该就是各种第三方登录了，例如 QQ 授权登录、微信授权登录、微博授权登录、GitHub 授权登录等等。
 
@@ -716,23 +721,170 @@ public interface IRule{
 
 
 
+## springcloud sleuth-分布式服务链路跟踪
+
++ 通常一个由客户端发起的请求在后端系统中会经过多个不同的微服务调用来协同产生最后的请求结果，在复杂的微服务架构系统中，几乎每一个前端请求都会形成一条复杂的分布式服务调用链路。在每条链路中任何一个依赖服务出现延迟过高或错误的时候都有可能引起请求最后的失败。这时候对于每个请求全链路调用的跟踪就变得越来越重要，通过实现对请求调用的跟踪可以帮助我们快速的发现错误根源以及监控分析每条请求链路上的性能瓶颈等好处。
+
++ #### 依赖注入
+
+  ```java
+  <dependency>
+  	<groupId>org.springframework.cloud</groupId>
+  	<artifactId>spring-cloud-starter-sleuth</artifactId>
+  </dependency>
+  ```
+
++ #### 四个返回值
+
+  + spring.application.name配置属性
+  + **Trach ID**：用来标识一条请求链路。一条请求链路中包含一个Trace ID，多个Span ID。
+  + **Span ID**：表示一个基本的工作单元，比如：发送一个HTTP请求。为了统计各处理单元的时间延迟，当请求达到各个服务组件时，或是处理逻辑到达某个状态时，通过spanid标识来标记它的开始、具体过程以及结束。【必须有开始和结束两个节点，另外还有事件名称、请求信息等】
+  + `false`：表示是否要将该信息输出到Zipkin等服务中来收集和展示。
+
+  上面四个值中的`Trace ID`和`Span ID`是Spring Cloud Sleuth实现分布式服务跟踪的核心。在一次服务请求链路的调用过程中，**会保持并传递同一个`Trace ID`**，从而**将整个分布于不同微服务进程中的请求跟踪信息串联起来**，以上面输出内容为例，`trace-1`和`trace-2`同属于一个前端服务请求来源，所以他们的`Trace ID`是相同的，处于同一条请求链路中。
+
+  + 请求通过**RestTemplate**实现：
+
+    + 对该请求进行处理，在发送到`trace-2`之前sleuth会为在该请求的Header中增加实现跟踪需要的重要信息，主要有：
+      + **X-B3-TraceId**：一条请求链路（Trace）的唯一标识，必须值
+      + **X-B3-SpanId**：一个工作单元（Span）的唯一标识，必须值
+      + **X-B3-ParentSpanId**:标识当前工作单元所属的上一个工作单元，Root Span（请求链路的第一个工作单元）的该值为空
+      + **X-B3-Sampled：**是否被抽样输出的标志，1表示需要被输出，0表示不需要被输出
+      + **X-Span-Name：**工作单元的名称
+
+  + #### 日志信息中添加跟踪信息功能：【ELK平台】
+
+    + 由于日志文件都离散的存储在各个服务实例的文件系统之上，仅仅通过查看日志文件来分析我们的请求链路依然是一件相当麻烦的差事，所以我们还需要一些工具来帮助我们集中的收集、存储和搜索这些跟踪信息。引入基于日志的分析系统是一个不错的选择，比如：**ELK平台**【包含：**ElasticSearch**、**Logstash**和**Kiabana**】
+
+      + Elasticsearch是个开源分布式搜索引擎，它的特点有：分布式，零配置，自动发现，索引自动分片，索引副本机制，restful风格接口，多数据源，自动搜索负载等。
+      + Logstash是一个完全开源的工具，他可以对你的日志进行收集、过滤，并将其存储供以后使用。
+      + Kibana 也是一个开源和免费的工具，它Kibana可以为 Logstash 和 ElasticSearch 提供的日志分析友好的 Web 界面，可以帮助您汇总、分析和搜索重要数据日志。
+
+    + #### 日志收集&数据对接：
+
+      + logstash的输出是json，springboot的logback，只需要通过在logback的配置中添加对logstash的appender。
+
+      但是，在ELK平台中的数据分析维度缺少对请求链路中各阶段时间延迟的关注，很多时候我们追溯请求链路的一个原因是**为了找出整个调用链路中出现延迟过高的瓶颈源，亦或是为了实现对分布式系统做延迟监控等与时间消耗相关的需求**，这时候类似ELK这样的日志分析系统就显得有些乏力了。对于这样的问题，我们就可以引入**Zipkin**来得以轻松解决。
 
 
-##### RPC协议
-
-#### redis令牌桶：
 
 
 
++ ## Zipkin-分布式服务跟踪
+
+  + 可以使用它来收集各个服务器上请求链路的跟踪数据，并通过它提供的**REST API接口**来辅助我们查询跟踪数据以实现对分布式系统的监控程序，从而**及时地发现系统中出现的延迟升高问题**并找出系统性能瓶颈的根源。除了**面向开发的API接口**之外，它也提供了方便的**UI组件**来帮助我们直观的搜索跟踪信息和分析请求链路明细，比如：可以查询某段时间内各用户请求的处理时间等。
+
+  + #### 四个核心的基础组件架构：
+
+    ![image-20210716151751129](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210716214233.png)
+
+  + **Collector**：**收集器组件**，它主要用于处理从外部系统发送过来的跟踪信息，将这些信息转换为Zipkin内部处理的Span格式，以支持后续的存储、分析、展示等功能。
+
+  + **Storage**：**存储组件**，它主要对处理收集器接收到的跟踪信息，默认会将这些信息存储在内存中，我们也可以修改此存储策略，通过使用其他存储组件将跟踪信息存储到数据库中。
+
+  + **RESTful API**：**API组件**，它主要用来提供外部访问接口。比如给客户端展示跟踪信息，或是外接系统访问以实现监控等。
+
+  + **Web UI**：**UI组件**，基于API组件实现的上层应用。通过UI组件用户可以方便而有直观地查询和分析跟踪信息。
+
+  
+
+  + #### Http收集：
+
+    + **第一步：搭建Zipkin Server**
+    + **第二步：为应用引入和配置Zipkin服务**
+
+  + #### 消息中间件收集：
+
+    + **第一步：修改客户端`trace-1`和`trace-2`**==>主要修改收集的方式为中间件收集
+    + **第二步：修改`zipkin-server`服务端**==>核心依赖：spring-cloud-sleuth-zipkin-stream
+
+  + #### Sleuth中的抽样收集策略：
+
+    + 在Sleuth中的抽样收集策略是通过`Sampler`接口实现的，它的定义如下：
+
+      ```java
+      public interface Sampler {
+          /**
+           * @return true if the span is not null and should be exported to the tracing system
+          */
+          boolean isSampled(Span span);
+      }
+      ```
+
+      默认情况下，Sleuth会使用`PercentageBasedSampler`实现的抽样策略，以请求百分比的方式配置和收集跟踪信息，我们可以通过在`application.properties`中配置下面的参数对其百分比值进行设置，它的默认值为`0.1`，代表收集10%的请求跟踪信息。
+
+    + 在开发调试期间，通常会收集全部跟踪信息输出到远程仓库，我们可以将其值设置为`1`，或者也可以通过创建`AlwaysSampler`的Bean（它实现的`isSampled`方法始终返回`true`）来覆盖默认的`PercentageBasedSampler`策略，比如：
+
+      ```java
+      @Bean
+      public AlwaysSampler defaultSampler() {
+          return new AlwaysSampler();
+      }
+      ```
+
+    + 在实际使用时，通过与Span对象中存储信息的配合，我们可以根据实际情况做出更贴近需求的抽样策略，比如实现一个仅对包含指定Tag的抽样策略：
+
+      ```java
+      public class TagSampler implements Sampler {
+      
+          private String tag;
+      
+          public TagSampler(String tag) {
+              this.tag = tag;
+          }
+      
+          @Override
+          public boolean isSampled(Span span) {
+              return span.tags().get(tag) != null;
+          }
+      }
+      ```
+
+    + #### 收集原理
+
+      + ##### 收集机制：
+
+        + 首先，我们来看看Sleuth在请求调用时是怎么样来记录和生成跟踪信息的。下图展示了我们在本章节中实现示例的运行全过程：客户端发送了一个HTTP请求到`trace-1`，`trace-1`依赖于`trace-2`的服务，所以`trace-1`再发送一个HTTP请求到`trace-2`，待`trace-2`返回响应之后，`trace-1`再组织响应结果返回给客户端。
+
+          ![img](https://blog.didispace.com/assets/sleuth-analysis-1.png)
+
+  
 
 
-#### 热更新  记仇
-
-#### 熔断 降级 资源隔离
 
 
 
-#### zuul核心过滤器--服务网关
+
+
+
+
+
+
+---
+
+## RPC协议
+
+## redis令牌桶：
+
+## 热更新  记仇
+
+
+
+
+
+---
+
+## zuul核心过滤器--服务网关
+
++ netflix开源的Gateway服务器，本质上是一个web servlet应用；
+
++ 在云平台上提供动态路由，监控，弹性，安全等边缘服务的框架。相当于是设备和Netflix流应用的web网站后端所有请求的前门；
+
++ zuul最主要的功能是==路由转发==和==过滤器==的实现；
+
++ #### 解决了什么问题：
+
+  ![image-20210715084940804](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210716214240.png)
 
 + 首先，破坏了服务无状态特点。为了保证对外服务的安全性，我们需要实现对服务访问的权限控制，而开放服务的权限控制机制将会贯穿并污染整个开放服务的业务逻辑，这会带来的最直接问题是，破坏了服务集群中REST API无状态的特点。从具体开发和测试的角度来说，在工作中除了要考虑实际的业务逻辑之外，**还需要额外可续对接口访问的控制处理。**
 
@@ -743,9 +895,9 @@ public interface IRule{
   + 服务网关是微服务架构中一个不可或缺的部分。通过服务网关统一向外系统提供REST API的过程中，除了具备服务路由、均衡负载功能之外，它还具备了权限控制等功能。
   + 为微服务架构提供了前门保护的作用，同时将权限控制这些较重的非业务逻辑内容迁移到服务路由层面，使得服务集群主体能够具备更高的可复用性和可测试性。
 
-+ ###### zuul的使用：
++ #### zuul的使用：
 
-  + 注入依赖
+  + ##### 注入依赖
 
     ```java
         org.springframework.cloud    spring-cloud-starter-zuul
@@ -759,7 +911,11 @@ public interface IRule{
 
     + 通过服务路由的功能，我们在对外提供服务的时候，只需要通过暴露Zuul中配置的调用地址就可以让调用方统一的来访问我们的服务，而不需要了解具体提供服务的主机信息了。
 
-  + zuul的两种映射方式：
+    + 通配符：
+
+      ![image-20210715085402653](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210716214243.png)
+
+  + ##### zuul的两种映射方式：
 
     + Url的映射方式：
 
@@ -773,7 +929,7 @@ public interface IRule{
 
       - 通过url映射的方式对于Zuul来说，并不是特别友好，Zuul需要知道我们所有为服务的地址，才能完成所有的映射配置。而实际上，我们在实现微服务架构时，服务名与服务实例地址的关系在eureka server中已经存在了，所以只需要将Zuul注册到eureka server上去发现其他服务，我们就可以实现对serviceId的映射。例如，我们可以如下配置：
 
-    + serviceId映射方式：
+    + ##### serviceId映射方式：
 
       ```java
       zuul.routes.api-a.path=/api-a/**
@@ -785,7 +941,7 @@ public interface IRule{
 
       针对我们在准备工作中实现的两个微服务service-A和service-B，定义了两个路由api-a和api-b来分别映射。另外为了让Zuul能发现service-A和service-B，也加入了eureka的配置。
 
-      ###### 配置的映射关系：
+      ##### 配置的映射关系：
 
       - `http://localhost:5555/api-a/add?a=1&b=2`：通过serviceId映射访问service-A中的add服务
       - `http://localhost:5555/api-b/add?a=1&b=2`：通过serviceId映射访问service-B中的add服务
@@ -793,7 +949,11 @@ public interface IRule{
 
       *推荐使用serviceId的映射方式，除了对Zuul维护上更加友好之外，serviceId映射方式还支持了断路器，对于服务故障的情况下，可以有效的防止故障蔓延到服务网关上而影响整个系统的对外服务*。
 
-  + ##### zuul的服务过滤：
+  + #### 路由的排除方式：
+
+    + ![image-20210715085525002](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210716214302.png)
+
+  + #### zuul的服务过滤：
 
     + 在完成了服务路由之后，我们对外开放服务还需要一些安全措施来保护客户端只能访问它应该访问到的资源。所以我们需要利用Zuul的过滤器来实现我们对外服务的安全控制。
 
@@ -801,8 +961,10 @@ public interface IRule{
 
     + ###### 过滤实现需要：
 
-      + **继承ZuulFilter；**
-      + **重写实现4个方法：**
+      + ##### **继承ZuulFilter；**
+
+      + ##### **重写实现4个方法：**
+
         + filterType：返回一个字符串代表过滤器的类型，在zuul中定义了四种不同生命周期的过滤器类型，具体如下：
           - `pre`：可以在请求被路由之前调用
           - `routing`：在路由请求时候被调用
@@ -811,9 +973,16 @@ public interface IRule{
         + `filterOrder`：通过int值来定义过滤器的执行顺序
         + `shouldFilter`：返回一个boolean类型来判断该过滤器是否要执行，所以通过此函数可实现过滤器的开关。在上例中，我们直接返回true，所以该过滤器总是生效。
         + `run`：过滤器的具体逻辑。需要注意，这里我们通过`ctx.setSendZuulResponse(false)`令zuul过滤该请求，不对其进行路由，然后通过`ctx.setResponseStatusCode(401)`设置了其返回的错误码，当然我们也可以进一步优化我们的返回，比如，通过`ctx.setResponseBody(body)`对返回body内容进行编辑等。
-      + **实例化该过滤器**；
 
-    + ##### 服务网关在微服务中的作用：
+  + ##### **实例化该过滤器**；
+
+    ![image-20210715085621374](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210716214310.png)
+
++ #### zuul的请求生命周期
+
+  ![image-20210715085906468](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210716214312.png)
+
++ #### 服务网关在微服务中的作用：
 
       + 不仅仅实现了路由功能来屏蔽诸多服务细节，更实现了服务级别、均衡负载的路由。
       + 实现了接口权限校验与微服务业务逻辑的解耦。通过服务网关中的过滤器，在各生命周期中去校验请求的内容，将原本在对外服务层做的校验前移，保证了微服务的无状态性，同时降低了微服务的测试难度，让服务本身更集中关注业务逻辑的处理。
@@ -823,13 +992,13 @@ public interface IRule{
 
 
 
+----
 
-
-#### 熔断器-Hystrix：
+## 熔断器-Hystrix：
 
 + 在分布式环境中，许多服务依赖关系中的一些必然会失败。Hystrix是一个库，它通过添加延迟容忍和容错逻辑来帮助您控制这些分布式服务之间的交互。Hystrix通过隔离服务之间的访问点、停止跨服务的级联故障并提供回退选项来实现这一点，所有这些选项都提高了系统的总体弹性。
 
-+ hystrix依赖
++ #### hystrix依赖
 
   ```java
   <dependency>
@@ -838,7 +1007,7 @@ public interface IRule{
   </dependency>
   ```
 
-+ ###### 主要步骤：
++ #### 主要步骤：
 
   + ###### 通过@EnableHystrix注解激活服务提供方短路
 
@@ -854,17 +1023,283 @@ public interface IRule{
 
 + hystrix作为一个服务容错保护组件，可以避免因为请求得不到及时响应而可能出现的大量**请求挤压**，甚至引发**雪崩效应**的情况，使得一个服务不可用之后直接熔断服务，而不至于导致整个分布式应用都受到影响。
 
++ #### Hystrix解决灾难性雪崩效应：
+
+  + ##### 降级
+
+    + 超时降级或资源不足时（线程或信号量）降级，降级后配合降级接口返回兜底数据，实现一个fallback方法，当请求后端服务出现异常的时候，可以使用fallback方法返回的值；在xxxxservice中，@HystrixCommand(value = '')可以指定返回的兜底方法，并给出具体实现方法。
+
+  + ##### 缓存
+
+    + Hystrix为了降级访问服务的频率，支持将一个请求与返回结果做缓存处理。如果再次请求的URL没有变化，那么Hystrix不会请求服务，而是直接从缓存中将结果返回，可以大大降低访问服务压力。[参考](https://dpb-bobokaoya-sm.blog.csdn.net/article/details/91456676)
+
+  + ##### 请求合并
+
+    + 微服务中独立的模块通过远程调用来相互配合，但在高并发情况下，通信次数的增加会导致总的通信时间增加，同时线程池的资源也是有限的，高并发环境会导致大量线程处于等待状态，导致响应延迟，所以Hystrix的请求合并可以解决。
+      + **缺点：**设置请求合并后，本来一个请求可能5ms就搞定了，但现在必须再等10ms去等其他的请求一起处理，这样的一个请求就增加了更多耗时，不过若我们要发起的命令本身就是一个高延时的命令，那么就可以使用请求合并，因为时间窗的时间消耗就显得微不足道了，另外高并发也是请求合并的重要场景。
+
+  + ##### 熔断
+
+    + 当失败率（网络故障/超时造成失败率上升）达到阈值自动触发降级，熔断器触发的快速失败会进行快速恢复。
+    + 熔断就是在降级的基础上，引入了重试的机制，当达到某一重试次数就会触发；
+    + 启动类上，@EnableCircuitBreaker的注解开启Hystrix熔断；
+
+    ![image-20210715083948283](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210716214318.png)
+
+    ![image-20210715084023507](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210716214326.png)
+
+  + ##### 隔离【限制调用分布式服务的资源使用，某一个调用的服务出现问题都不会影响其他服务的调用】
+
+    + ###### 线程隔离
+
+      ![image-20210715084106212](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210716214328.png)
+
+      ![image-20210715084122245](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210716214332.png)
+
+    + ###### 信号量隔离
+
+      ![image-20210715084455270](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210716214337.png)
+
+    + ###### 区别
+
+      ![image-20210715084528283](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210716214218.png)
+
+  
+
+  + #### 熔断监测之monitor:
+
+    + https://blog.csdn.net/feinifi/article/details/96035614
+
+
+
+
+
+
+
+## SpringCloud Config配置中心
+
++ 将系统中用到的一些配置信息存储到配置中心，方便维护，不用每次修改配置都重启服务。用的比较多的配置中心还有etcd、携程的 Apollo。
+
+![image-20210715223452112](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232646.png)
+
+![image-20210715223517694](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232644.png)
+
+![image-20210715223552278](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232643.png)
+
+![image-20210715223612230](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232640.png)
+
+![image-20210715230133145](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232637.png)
+
+![image-20210715232538761](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210715232638.png)
+
+
+
+
+
+## springcloud stream消息驱动
+
++ #### [核心概念][https://blog.didispace.com/spring-cloud-starter-dalston-7-2/]
+
++ 解决实际开发中系统难免使用多个或途中更改消息中间件，而 stream 就是用来整合消息中间件的工具，从而降低系统于中间件的耦合度。
+
++ 官方定义为构建消息驱动微服务的框架；应用通过inputs或outputs来与steam中的binder交互，通过配置binding，而stream的binder负责与中间件交互。通过使用spring integration来连接消息代理中间件来实现消息事件驱动。stream为一些供应商的消息中间件产品提供一个个性化的自动化配置实现，引用了发布-订阅，消息组，分区的三个核心概念。【目前只支持rabbitmq、kafka】
+
++ stream解决了开发人员无感知的使用消息中间件的问题，因为stream对消息中间件的进一步封装，可以做到代码层面度中间件的无感知，甚至于动态的切换中间件。是的微服务开发的高度解耦，服务可以关注更多自己的业务。
+
+  ![image-20210716084009323](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210716214203.png)
+
+  ![image-20210716083744664](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210716214159.png)
+
++ #### 消费组
+
+  + ##### 使用消费组实现消息消费的负载均衡[https://blog.didispace.com/spring-cloud-starter-dalston-7-3/]
+
+  + [使用消息分区](https://blog.didispace.com/spring-cloud-starter-dalston-7-4/)
+
+
+
+
+
+## springcloud Bus消息总线
+
++ 集成了常用的消息中间件【rabbitmq、kafka】，连接微服务系统中所有的节点，当有数据变更时，可以通过消息代理的=广播通知微服务技师变更数据，例如微服务的配置更新。
++ 解决的是微服务的数据变更与同步问题；
+
+
+
+
+
+
+
 ---
 
-#### Elasticsearch
+## RabbitMQ：
 
-#### swagger
++ #### Overview(概述)
+
+  + **Totals**里面有Unacked未确认的消息数
+
+    **Nodes** ：其实就是支撑RabbitMQ运行的一些机器（可以理解为集群的节点），RabbitMQ我只装在了本地，因而只能看到一个节点。
+
+    **Listening ports**：3个端口（5672,25672,15672）;
+
+    　　5672对应的是amqp，25672对应的是clustering，15672对应的是http（也就是我们登录RabbitMQ后台管理时用的端口）。
+
+    　　25672对应的是集群，15672对应的是后台管理。因为RabbitMQ遵循Ampq协议，所以5672对应的就是RabbitMQ的通信了。
+
+  + **所有队列上一分钟的消息阻塞情况**
+
+    Ready：待消费的消息总数。
+    Unacked：待应答的消息总数。
+    Total：总数 Ready+Unacked。
+
+    ![image-20210716091352295](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210716214200.png)
+
+    
+
+  + ##### 所有队列的消费情况
+
+    Publish：producter pub消息的速率。
+    Publisher confirm：确认pub消息的速率。
+    Deliver(manual ack)：customer手动确认的速率。
+    Deliver(auto ack)：customer自动确认的速率。
+    Consumer ack：customer正在确认的速率。
+    Redelivered：正在传递'redelivered'标志集的消息的速率。
+    Get (manual ack)：响应basic.get而要求确认的消息的传输速率。
+    Get (auto ack)：响应basic.get而发送不需要确认的消息的速率。
+    Return：将basic.return发送给producter的速率。
+    Disk read：queue从磁盘读取消息的速率。
+    Disk write：queue从磁盘写入消息的速率。
+
+    ![image-20210716091635829](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210716214157.png)
+
+  + **全局数据**
+
+    Connections：client的tcp连接的总数。
+    Channels：通道的总数。
+    Exchange：交换器的总数。
+    Queues：队列的总数。
+    Consumers：消费者的总数。
+
+    ![image-20210716091829532](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210716214156.png)
+
+  + ##### 消息服务器节点信息
+
+    Name：节点名称
+    File descriptors：节点打开的文件描述符和限制。
+    Socket descriptors：管理的网络套接字数量和限制。当限制被耗尽时，RabbitMQ将停止接受新的网络连接。
+    Erlang processes：erlang启动的进程数。
+    Memory：当前消息服务器占用的内存。
+    Disk space：当前服务器占用的硬盘。
+    Uptime：当前节点持续运行的时长。
+    Info：节点信息。
+    Reset stats：重置节点状态。
+    ![image-20210716091939864](https://blogrrw.oss-cn-shenzhen.aliyuncs.com/bloguse/20210716214402.png)
+
+    
+
++ #### Connections(连接)
+
+  + 当前所有客户端活动的连接。包括生成者和消费者。"连接"就是生产者和消费者的连接情况；
+
+    不管生产者还是消费者，其实都是应用程序（主体是计算机，有ip地址即可，物理上可以位于任何地方），都需要和rabbitmq服务器建立连接。
+
+  + ##### **为什么要用虚拟主机？**
+
+    + RabbitMQ server 可以说就是一个消息队列服务器实体（**Broker**），**Broker**当中可以有多个用户（[增加用户的命令](http://www.cnblogs.com/ericli-ericli/p/5902270.html)），而用户只能在虚拟主机的粒度进行权限控制，所以RabbitMQ中需要多个虚拟主机。每一个RabbitMQ服务器都有一个默认的虚拟主机“/”。】	
+
+  + ##### 连接属性:
+
+    Virtual host：所属的虚拟主机。
+    Name：名称。
+    User name：使用的用户名。
+    State：当前的状态，running：运行中；idle：空闲；flow：流控。
+    SSL/TLS：是否使用ssl进行连接。
+    Protocol：使用的协议。
+    Channels：创建的channel的总数。
+    From client：每秒发出的数据包。
+    To client：每秒收到的数据包。
+
++ #### Channels(通道)
+
+  + "通道"是建立在"连接"基础上的，实际开发中"连接"应为全局变量，"通道"为线程级；
+
+  + 一个连接(ip) 可以有多个通道，eg，采用多线程。
+
+  + 一个连接（Connections）可以创建多个通道【采用多线程】；一个应用或者一个线程 都是一个通道（Channel）；在通道中 创建队列Queue
+
+    生产者的通道一般会立马关闭；消费者是一直侦听的，通道几乎是会一直存在。
+
+  + ##### 当前连接所有创建的通道。通道的属性：
+
+    channel：名称。
+    Virtual host：所属的虚拟主机。
+    User name：使用的用户名。
+    Mode：渠道保证模式。 可以是以下之一，或者不是：C: confirm。T：transactional(事务)。
+    State ：当前的状态，running：运行中；idle：空闲；flow：流控。 
+    Unconfirmed：待confirm的消息总数。
+    Prefetch：设置的prefetch的个数。
+    Unacker：待ack的消息总数。
+    publish：producter pub消息的速率。
+    confirm：producter confirm消息的速率。
+    deliver/get：consumer 获取消息的速率。
+    ack：consumer ack消息的速率。
+
++ #### Exchanges(交换器)      [RabbitMQ交换器Exchange介绍与实践](https://www.cnblogs.com/vipstone/p/9295625.html)
+
+  + ##### 交换器属性：
+
+    Virtual host：所属的虚拟主机。
+    Name：名称。
+    Type：exchange type。
+    Features：功能。 可以是以下之一，或者不是：D: 持久化。T：Internal，存在改功能表示这个exchange不可以被client用来推送消息，仅用来进行exchange和exchange之间的绑定，否则可以推送消息也可以绑定。
+    Message rate in：消息进入的速率。
+    Message rate out：消息出去的速率。
+
++ #### Queues(队列)
+
+  + 是指 队列中此时含有未被消费的数据条数。
+
+    **下方可以查看队列有没有消费者（consumer）**
+
+  + ##### 队列的属性：
+
+    Virtual host：所属的虚拟主机。
+    Name：名称。
+    Features：功能。 可以是以下之一，或者不是：D: 持久化。
+    State：当前的状态，running：运行中；idle：空闲。
+    Ready：待消费的消息总数。
+    Unacked：待应答的消息总数。
+    Total：总数 Ready+Unacked。
+    incoming：消息进入的速率。
+    deliver/get：消息获取的速率。
+    ack：消息应答的速率。  
+
++ #### Admin(用户管理)
+
+  + 　"用户管理"就是用户增删改查以及虚拟主机、规则等的配置。
+
+##### [RabbitMQ后台管理界面1](https://www.cnblogs.com/peterYong/p/10845560.html)
+
+##### [RabbitMQ后台管理界面2](https://blog.csdn.net/suman35/article/details/103011177)
 
 
 
 
 
-#### 重温MVC框架
+
+
+---
+
+## Elasticsearch
+
+## swagger
+
+
+
+
+
+## 重温MVC框架
 
 [SpringMVC 包教包会](https://www.cnblogs.com/lenve/p/12100698.html)
 
@@ -872,26 +1307,26 @@ public interface IRule{
 +  基于请求驱动指的就是使用请求-响应模型，框架的目的就是帮助我们简化开发
 +  提供了非常灵活的数据验证、格式化和数据绑定机制；提供了强大的约定大于配置（惯例优先原则）的契约式编程支持。
 
-#### Java回调机制
+## Java回调机制
 
 + 回调是一个函数，它作为参数传递给另一个函数，并在其父函数完成后执行。
 
 
 
-#### 应用上下文
+## 应用上下文
 
 + ##### [BeanFactory和ApplicationContext有什么区别？](https://cwl-java.blog.csdn.net/article/details/102902308)
 
 
 
-#### AOP
+## AOP
 
 + AOP为Aspect Oriented Programming的缩写，意为：面向切面编程，通过**预编译**方式和运行期间动态代理实现程序功能的统一维护的一种技术。AOP是**OOP**的延续，是软件开发中的一个热点，也是**Spring**框架中的一个重要内容，是**函数式编程**的一种衍生范型。利用AOP可以对业务逻辑的各个部分进行隔离，从而使得业务逻辑各部分之间的**耦合度**降低，提高程序的可重用性，同时提高了开发的效率。
 + [Spring-AOP](https://baijiahao.baidu.com/s?id=1675058725019522890&wfr=spider&for=pc)
 
 
 
-#### Java日志
+## Java日志
 
 + ###### 日志体系
 
@@ -961,25 +1396,47 @@ public interface IRule{
 
 
 
++ #### 错误归纳：
 
+  + ###### BeanPostProcessor before instantiation of bean failed; nested exception is java.lang.NoClassDefFoundError: org/aspectj/weaver/tools/PointcutPrimitive
 
+    原因：缺少aspectj依赖：
 
+    ```java
+    <dependency>
+        <groupId>org.aspectj</groupId>
+        <artifactId>aspectjweaver</artifactId>
+        <version>1.9.2</version>
+    </dependency>  
+        
+    ```
 
+    ---
 
+  + zipkin注入依赖请求监测项目链路，控制台输出的zipkin收集不到链路信息，INFO [spc-sleuth,cbb42cb34409e44a,cbb42cb34409e44a,**false**]
 
+    解决的办法为配置文件中加上```spring.sleuth.sampler.percentage=1.0```，采样默认是0.1【10%】
 
+  + > ###### 收集方式冲突问题 【依赖冲突修改 +  启动类注解修改】【https://blog.csdn.net/lvyuan1234/article/details/77652938】
+    >
+    > Description:
+    >
+    > Parameter 0 of method sleuthStreamSpanReporter in org.springframework.cloud.sleuth.stream.SleuthStreamAutoConfiguration required a bean of type 'org.springframework.cloud.sleuth.stream.HostLocator' that could not be found.
+    >
+    > 	- Bean **method 'zipkinEndpointLocator' not loaded because @ConditionalOnProperty (spring.zipkin.locator.discovery.enabled=true) did not find property 'spring.zipkin.locator.discovery.enabled'**
+    >
+    >
+    > Action:
+    >
+    > Consider revisiting the conditions above or defining a bean of type 'org.springframework.cloud.sleuth.stream.HostLocator' in your configuration.
 
+  + SpringCloud集成 报错 An attempt was made to call a method that does not exist. The attempt was made from the following location:...
 
-
-
-
-
-
-
-
-
-
-
+    > springboot 与 springcloud版本冲突~
+    >
+    > https://blog.csdn.net/qq_29950673/article/details/102621679
+    >
+    > https://zhuanlan.zhihu.com/p/147899433
 
 
 
