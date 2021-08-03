@@ -3168,3 +3168,9 @@ https://blog.csdn.net/xiangminghan/article/details/103486030?ops_request_misc=%2
 https://blog.csdn.net/xiangminghan/article/details/103585976?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522162788621616780262511280%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fblog.%2522%257D&request_id=162788621616780262511280&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~first_rank_v2~rank_v29-3-103585976.pc_v2_rank_blog_default&utm_term=Java+Web%E5%AE%9E%E8%AE%AD%E9%A1%B9%E7%9B%AE%EF%BC%9A%E8%A5%BF%E8%92%99%E8%B4%AD%E7%89%A9&spm=1018.2226.3001.4450
 
 https://blog.csdn.net/qq_38454176/category_9809622.html?spm=1001.2014.3001.5515
+  
+[mybatis-plus]https://mp.baomidou.com/guide/crud-interface.html
+[mybatis-plus多表查询]
+  https://blog.csdn.net/hexu_blog/article/details/104754787
+  https://www.cnblogs.com/baiyifengyun/p/13756653.html
+  
